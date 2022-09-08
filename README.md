@@ -102,6 +102,9 @@ mvn clean package -DskipTests -Dspark3.1 -Dscala-2.12
 
 # Build against Spark 2.4.4 and Scala 2.12
 mvn clean package -DskipTests -Dspark2.4 -Dscala-2.12
+
+# Build cdh6.3.2
+mvn clean package -DskipTests -Dspark2.4 -Dhadoop.version=3.0.0-cdh6.3.2
 ```
 
 #### What about "spark-avro" module?

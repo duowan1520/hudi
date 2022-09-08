@@ -70,7 +70,7 @@ import org.apache.hudi.table.storage.HoodieStorageLayout;
 import org.apache.hadoop.hbase.io.compress.Compression;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.orc.CompressionKind;
+// import org.apache.orc.CompressionKind;
 import org.apache.parquet.hadoop.metadata.CompressionCodecName;
 
 import javax.annotation.concurrent.Immutable;
@@ -1689,9 +1689,9 @@ public class HoodieWriteConfig extends HoodieConfig {
     return getInt(HoodieStorageConfig.ORC_BLOCK_SIZE);
   }
 
-  public CompressionKind getOrcCompressionCodec() {
-    return CompressionKind.valueOf(getString(HoodieStorageConfig.ORC_COMPRESSION_CODEC_NAME));
-  }
+  // public CompressionKind getOrcCompressionCodec() {
+  //   return CompressionKind.valueOf(getString(HoodieStorageConfig.ORC_COMPRESSION_CODEC_NAME));
+  // }
 
   /**
    * metrics properties.

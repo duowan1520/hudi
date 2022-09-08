@@ -37,7 +37,7 @@ import org.apache.parquet.avro.AvroSchemaConverter;
 import java.io.IOException;
 
 import static org.apache.hudi.common.model.HoodieFileFormat.HFILE;
-import static org.apache.hudi.common.model.HoodieFileFormat.ORC;
+// import static org.apache.hudi.common.model.HoodieFileFormat.ORC;
 import static org.apache.hudi.common.model.HoodieFileFormat.PARQUET;
 import static org.apache.hudi.io.storage.HoodieHFileConfig.CACHE_DATA_IN_L1;
 import static org.apache.hudi.io.storage.HoodieHFileConfig.DROP_BEHIND_CACHE_COMPACTION;
@@ -57,10 +57,10 @@ public class HoodieFileWriterFactory {
       return newHFileFileWriter(
           instantTime, path, config, schema, hoodieTable.getHadoopConf(), taskContextSupplier);
     }
-    if (ORC.getFileExtension().equals(extension)) {
-      return newOrcFileWriter(
-          instantTime, path, config, schema, hoodieTable.getHadoopConf(), taskContextSupplier);
-    }
+    // if (ORC.getFileExtension().equals(extension)) {
+    //   return newOrcFileWriter(
+    //       instantTime, path, config, schema, hoodieTable.getHadoopConf(), taskContextSupplier);
+    // }
     throw new UnsupportedOperationException(extension + " format not supported yet.");
   }
 
@@ -97,14 +97,14 @@ public class HoodieFileWriterFactory {
     return new HoodieHFileWriter<>(instantTime, path, hfileConfig, schema, taskContextSupplier, config.populateMetaFields());
   }
 
-  private static <T extends HoodieRecordPayload, R extends IndexedRecord> HoodieFileWriter<R> newOrcFileWriter(
-      String instantTime, Path path, HoodieWriteConfig config, Schema schema, Configuration conf,
-      TaskContextSupplier taskContextSupplier) throws IOException {
-    BloomFilter filter = createBloomFilter(config);
-    HoodieOrcConfig orcConfig = new HoodieOrcConfig(conf, config.getOrcCompressionCodec(),
-        config.getOrcStripeSize(), config.getOrcBlockSize(), config.getOrcMaxFileSize(), filter);
-    return new HoodieOrcWriter<>(instantTime, path, orcConfig, schema, taskContextSupplier);
-  }
+  // private static <T extends HoodieRecordPayload, R extends IndexedRecord> HoodieFileWriter<R> newOrcFileWriter(
+  //     String instantTime, Path path, HoodieWriteConfig config, Schema schema, Configuration conf,
+  //     TaskContextSupplier taskContextSupplier) throws IOException {
+  //   BloomFilter filter = createBloomFilter(config);
+  //   HoodieOrcConfig orcConfig = new HoodieOrcConfig(conf, config.getOrcCompressionCodec(),
+  //       config.getOrcStripeSize(), config.getOrcBlockSize(), config.getOrcMaxFileSize(), filter);
+  //   return new HoodieOrcWriter<>(instantTime, path, orcConfig, schema, taskContextSupplier);
+  // }
 
   private static BloomFilter createBloomFilter(HoodieWriteConfig config) {
     return BloomFilterFactory.createBloomFilter(config.getBloomFilterNumEntries(), config.getBloomFilterFPP(),
